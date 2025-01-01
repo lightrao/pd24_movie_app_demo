@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pd24_movie_app_demo/providers/movie_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:pd24_movie_app_demo/pages/movie_details.dart';
 
 void main() {
   runApp(
@@ -87,14 +88,33 @@ class _HomeState extends State<Home> {
                                     ),
                               ),
                               TextSpan(
-                                text: movie.released,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                text: '${movie.released} \n',
+                              ),
+                              TextSpan(
+                                text: 'Plot: ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                              TextSpan(
+                                text: movie.plot,
                               ),
                             ],
                           ),
                         ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MovieDetails(),
+                                ),
+                              );
+                            },
+                            child: Text('Read More')),
                       ],
                     ),
                   ),
