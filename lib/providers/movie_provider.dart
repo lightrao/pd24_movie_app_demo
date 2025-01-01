@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:pd24_movie_app_demo/models/movie.dart';
+import 'package:pd24_movie_app_demo/utils/movie_parser.dart';
 
 class MovieProvider extends ChangeNotifier {
-  final List<String> _movieList = <String>[
-    'Movie 1',
-    'Movie 2',
-    'Movie 3',
-    'Movie 4',
-    'Movie 5',
-    'Movie 6',
-    'Movie 7',
-    'Movie 8',
-    'Movie 9',
-    'Movie 10',
-  ];
+  List<Movie> _movieList = [];
 
-  List<String> get movieList => _movieList;
+  List<Movie> get movieList => _movieList;
 
-  List<String> loadMovies() {
-    return _movieList;
+  Future<void> loadMovies(BuildContext context) async {
+    try {
+      final jsonString = await DefaultAssetBundle.of(context)
+          .loadString('assets/data/films.json');
+      final movies = MovieParser.parse(jsonString);
+      _movieList = movies;
+      notifyListeners();
+    } catch (e) {
+      print('Error loading movies: $e');
+    }
   }
 
-  void addMovie(String movie) {
+  // List<Movie> loadMovies() {
+  //   return _movieList;
+  // }
+
+  void addMovie(Movie movie) {
     _movieList.add(movie);
     notifyListeners();
   }
 
-  void removeMovie(String movie) {
+  void removeMovie(Movie movie) {
     _movieList.remove(movie);
     notifyListeners();
   }
 
-  void updateMovie(String oldMovie, String newMovie) {
+  void updateMovie(Movie oldMovie, Movie newMovie) {
     final index = _movieList.indexOf(oldMovie);
     _movieList[index] = newMovie;
     notifyListeners();
@@ -41,7 +44,7 @@ class MovieProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int indexOf(String movie) {
+  int indexOf(Movie movie) {
     return _movieList.indexOf(movie);
   }
 }

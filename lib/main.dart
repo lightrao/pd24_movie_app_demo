@@ -37,9 +37,16 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  void initState() {
+    super.initState();
+    // context.read<MovieProvider>().loadMovies(context);
+    Provider.of<MovieProvider>(context, listen: false).loadMovies(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // final _movieList = context.watch<MovieProvider>().loadMovies();
-    final movies = Provider.of<MovieProvider>(context).loadMovies();
+    // final movies = context.watch<MovieProvider>();
+    final movieData = Provider.of<MovieProvider>(context, listen: true);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,14 +54,15 @@ class _HomeState extends State<Home> {
       ),
       body: Center(
         child: ListView.builder(
-          itemCount: movies.length,
+          itemCount: movieData.movieList.length,
           itemBuilder: (context, index) {
+            final movie = movieData.movieList[index];
             return ListTile(
-              title: Text(movies[index]),
-              subtitle: Text('Movie ${index + 1}'),
+              title: Text(movie.title),
+              subtitle: Text(movie.director),
               trailing: Icon(Icons.arrow_forward),
               leading: CircleAvatar(
-                child: Text(movies[index][0]),
+                child: Text(movie.title[0]),
               ),
             );
           },
