@@ -51,6 +51,11 @@ class _HomeState extends State<Home> {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(movies[index]),
+              subtitle: Text('Movie ${index + 1}'),
+              trailing: Icon(Icons.arrow_forward),
+              leading: CircleAvatar(
+                child: Text(movies[index][0]),
+              ),
             );
           },
         ),
