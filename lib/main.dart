@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pd24_movie_app_demo/components/movie_card.dart';
 import 'package:pd24_movie_app_demo/providers/movie_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:pd24_movie_app_demo/pages/movie_details.dart';
 
 void main() {
   runApp(
@@ -59,70 +59,7 @@ class _HomeState extends State<Home> {
           itemBuilder: (context, index) {
             final movie = movieData.movieList[index];
 
-            return Card(
-              child: ExpansionTile(
-                title: Text(movie.title),
-                subtitle: Text('Director: ${movie.director}'),
-                leading: CircleAvatar(
-                  child: Text(movie.title[0]),
-                ),
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(
-                      left: 75,
-                    ),
-                    child: Column(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            style: DefaultTextStyle.of(context).style,
-                            children: [
-                              TextSpan(
-                                text: 'Release Date: ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              TextSpan(
-                                text: '${movie.released} \n',
-                              ),
-                              TextSpan(
-                                text: 'Plot: ',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              TextSpan(
-                                text: movie.plot,
-                              ),
-                            ],
-                          ),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MovieDetails(
-                                    movie: movie,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Text('Read More')),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return MovieCard(movie: movie);
             // return ListTile(
             //   title: Text(movie.title),
             //   subtitle: Text(movie.director),
