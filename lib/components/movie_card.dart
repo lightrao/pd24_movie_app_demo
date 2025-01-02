@@ -17,7 +17,13 @@ class MovieCard extends StatelessWidget {
         title: Text(movie.title),
         subtitle: Text('Director: ${movie.director}'),
         leading: CircleAvatar(
-          child: Text(movie.title[0]),
+          backgroundImage: NetworkImage(movie.images[0]),
+          child: Text(movie.title[0],
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              )),
         ),
         children: [
           Container(

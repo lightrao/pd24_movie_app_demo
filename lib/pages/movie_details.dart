@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pd24_movie_app_demo/components/movie_card.dart';
 import 'package:pd24_movie_app_demo/models/movie.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -10,10 +11,12 @@ class MovieDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie.title),
+        title: Text('Movie Details'),
       ),
-      body: Center(
-        child: Text('Movie Details'),
+      body: Container(
+        child: Column(
+          children: [MovieCard(movie: movie)],
+        ),
       ),
     );
   }
